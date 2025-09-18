@@ -1,5 +1,3 @@
-import React from "react";
-
 const WorkCard = ({ img, name, description, onClick }) => {
   return (
     <div

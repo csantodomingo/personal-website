@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProjectResume = ({ dates, type, position, bullets }) => {
   const [bulletsLocal, setBulletsLocal] = React.useState(bullets.split(","));
 

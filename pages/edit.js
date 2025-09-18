@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import { v4 as uuidv4 } from "uuid";
@@ -47,7 +47,7 @@ const Edit = () => {
           imageSrc:
             "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
 
-          url: "http://chetanverma.com/",
+          url: "http://todo.com/",
         },
       ],
     });
@@ -57,35 +57,6 @@ const Edit = () => {
     const copyProjects = data.projects;
     copyProjects = copyProjects.filter((project) => project.id !== id);
     setData({ ...data, projects: copyProjects });
-  };
-
-  // Services Handler
-
-  const editServices = (serviceIndex, editService) => {
-    let copyServices = data.services;
-    copyServices[serviceIndex] = { ...editService };
-    setData({ ...data, services: copyServices });
-  };
-
-  const addService = () => {
-    setData({
-      ...data,
-      services: [
-        ...data.services,
-        {
-          id: uuidv4(),
-          title: "New Service",
-          description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        },
-      ],
-    });
-  };
-
-  const deleteService = (id) => {
-    const copyServices = data.services;
-    copyServices = copyServices.filter((service) => service.id !== id);
-    setData({ ...data, services: copyServices });
   };
 
   // Socials Handler
@@ -104,7 +75,7 @@ const Edit = () => {
         {
           id: uuidv4(),
           title: "New Link",
-          link: "www.chetanverma.com",
+          link: "www.todo.com",
         },
       ],
     });
@@ -148,7 +119,7 @@ const Edit = () => {
 
   return (
     <div className={`container mx-auto ${data.showCursor && "cursor-none"}`}>
-      <Header isBlog></Header>
+      <Header></Header>
       {data.showCursor && <Cursor />}
       <div className="mt-10">
         <div className={`${theme === "dark" ? "bg-transparent" : "bg-white"}`}>
@@ -173,12 +144,6 @@ const Edit = () => {
               type={currentTabs === "PROJECTS" && "primary"}
             >
               Projects
-            </Button>
-            <Button
-              onClick={() => setCurrentTabs("SERVICES")}
-              type={currentTabs === "SERVICES" && "primary"}
-            >
-              Services
             </Button>
             <Button
               onClick={() => setCurrentTabs("ABOUT")}
@@ -265,23 +230,6 @@ const Edit = () => {
               ></input>
             </div>
             <div className="mt-5 flex items-center">
-              <label className="w-1/5 text-lg opacity-50">Blog</label>
-              <div className="w-4/5 ml-10 flex items-center">
-                <Button
-                  onClick={() => setData({ ...data, showBlog: true })}
-                  type={data.showBlog && "primary"}
-                >
-                  Yes
-                </Button>
-                <Button
-                  onClick={() => setData({ ...data, showBlog: false })}
-                  classes={
-                    !data.showBlog && "bg-red-500 text-white hover:bg-red-600"
-                  }
-                >
-                  No
-                </Button>
-              </div>
             </div>
             <div className="mt-5 flex items-center">
               <label className="w-1/5 text-lg opacity-50">Dark Mode</label>
@@ -426,61 +374,6 @@ const Edit = () => {
             <div className="my-10">
               <Button onClick={addProject} type="primary">
                 Add Project +
-              </Button>
-            </div>
-          </>
-        )}
-        {/* SERVICES */}
-        {currentTabs === "SERVICES" && (
-          <>
-            <div className="mt-10">
-              {data.services.map((service, index) => (
-                <div key={service.id}>
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-2xl">{service.title}</h1>
-                    <Button
-                      onClick={() => deleteService(service.id)}
-                      type="primary"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                  <div className="flex items-center mt-5">
-                    <label className="w-1/5 text-lg opacity-50">Title</label>
-                    <input
-                      value={service.title}
-                      onChange={(e) =>
-                        editServices(index, {
-                          ...service,
-                          title: e.target.value,
-                        })
-                      }
-                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
-                      type="text"
-                    ></input>
-                  </div>
-                  <div className="flex items-center mt-5">
-                    <label className="w-1/5 text-lg opacity-50">
-                      Description
-                    </label>
-                    <textarea
-                      value={service.description}
-                      onChange={(e) =>
-                        editServices(index, {
-                          ...service,
-                          description: e.target.value,
-                        })
-                      }
-                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
-                    ></textarea>
-                  </div>
-                  <hr className="my-10"></hr>
-                </div>
-              ))}
-            </div>
-            <div className="my-10">
-              <Button onClick={addService} type="primary">
-                Add Service +
               </Button>
             </div>
           </>
